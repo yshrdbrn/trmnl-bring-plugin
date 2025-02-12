@@ -18,6 +18,7 @@ class BringPlugin:
         self.email = os.getenv('EMAIL')
         self.password = os.getenv('PASSWORD')
         self.webhook_url = os.getenv('WEBHOOK_URL')
+        self.items = []
 
     async def grabItems(self):
         itemObjs = (await self.bring.get_list(self.list)).items.purchase
@@ -26,6 +27,12 @@ class BringPlugin:
         return items
     
     async def sendItemsToTerminal(self, session, items):
+        if set (self.items) == set(items):
+            print(f"The items list hasn't changed since the last fetch.")
+            print(f"Skipping sending updates to TRMNL.")
+            return
+        self.items = items
+
         try:
             await session.post(
                 self.webhook_url,
