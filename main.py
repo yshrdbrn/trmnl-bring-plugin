@@ -25,7 +25,8 @@ class BringPlugin:
     async def grabItems(self):
         itemObjs = (await self.bring.get_list(self.list)).items.purchase
         items = [item.itemId for item in itemObjs]
-        print(f"Items fetched: {items}")
+        print(f"Successfully fetched items at {datetime.datetime.now().isoformat()}")
+        print(f"Items = {items}")
         return items
     
     async def sendItemsToTerminal(self, session, items):
