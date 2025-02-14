@@ -2,12 +2,12 @@
   <div class="columns">
     {% assign number_of_items_per_column = 10 %}
     {% assign number_of_columns = 2 %}
-    {% assign totalCount = items | size %}
+    {% assign total_count = items | size %}
     {% assign number_of_items_displayed = 0 %}
 
     {% assign var = number_of_columns | minus: 1 %}
     {% for i in (0..var) %}
-      {% if number_of_items_displayed >= totalCount %}
+      {% if number_of_items_displayed >= total_count %}
         {% break %}
       {% endif %}
       <div
@@ -18,7 +18,7 @@
       >
         {% assign items_to_display_count = number_of_items_per_column %}
         {% if i == var %}
-          {% assign items_to_display_count = totalCount | minus: number_of_items_displayed %}
+          {% assign items_to_display_count = total_count | minus: number_of_items_displayed %}
         {% endif %}
         {% assign items_to_display = items | slice: number_of_items_displayed, items_to_display_count %}
         {% for item in items_to_display %}
