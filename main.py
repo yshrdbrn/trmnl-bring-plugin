@@ -11,6 +11,8 @@ from bring_api.exceptions import BringException
 
 load_dotenv()
 
+EXCEPTION_SLEEP_INTERVAL = 60
+
 class BringPlugin:
     SLEEP_INTERVAL = 15 * 60 # 15 minutes
 
@@ -67,7 +69,9 @@ if __name__ == "__main__":
             loop.run_until_complete(bring_plugin.run())
         except BringException as e:
             print(f"Bring exception occured: {e}")
+            print(f"Sleeping for {EXCEPTION_SLEEP_INTERVAL} seconds.")
+            time.sleep(EXCEPTION_SLEEP_INTERVAL)
             print(f"Retrying the service")
         except Exception as e:
-            print(f"Unknowne exception occured: {e}")
+            print(f"Unknown exception occured: {e}")
             raise
