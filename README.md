@@ -22,7 +22,7 @@ You then need to create the view templates for your plugin. Go to the Edit Marku
 
 ### 2. Run the backend service
 
-The backend service queries Bring! every 15 minutes to grab the list of items in your shopping list and sends the list to TRMNL if the shopping list changed since the last query.
+The backend service runs indefinitely, queries Bring! every 15 minutes to grab the list of items in your shopping list and sends the list to TRMNL if the shopping list changed since the last query.
 
 Have these handy:
 
@@ -32,7 +32,11 @@ Have these handy:
 
 *Note:* If you signed up to Bring! using Apple ID or Google Sign-in or other SSOs you need to create password first. More [here](https://www.home-assistant.io/integrations/bring/#prerequisites).
 
-You can either run the backend service through docker:
+You can either run the backend service through docker or run the script directly.
+
+#### Docker
+
+Pull the docker image and pass the email, password and webhook url as env variables.
 
 ```bash
 docker pull ghcr.io/yshrdbrn/trmnl-bring-plugin:main
@@ -46,7 +50,9 @@ docker run
     'ghcr.io/yshrdbrn/trmnl-bring-plugin:main'
 ```
 
-or run the script directly:
+#### Run the script directly
+
+Clone the repo and rename `.env.example` to `.env` and put in your email, password and webhook url there. Then run the script:
 
 ```bash
 python3 -m venv venv
