@@ -1,49 +1,44 @@
 <div class="layout">
-    <div class="columns">
-      {% assign number_of_items_per_column = 6 %}
-      {% assign number_of_columns = 2 %}
-      {% assign total_count = items | size %}
-      {% assign number_of_items_displayed = 0 %}
+  <div class="columns">
+    {% assign number_of_items_per_column = 6 %}
+    {% assign number_of_columns = 2 %}
+    {% assign total_count = items | size %}
+    {% assign number_of_items_displayed = 0 %}
 
-      {% assign var = number_of_columns | minus: 1 %}
-      {% for i in (0..var) %}
-        {% if number_of_items_displayed >= total_count %}
-          {% break %}
+    {% assign var = number_of_columns | minus: 1 %}
+    {% for i in (0..var) %}
+      {% if number_of_items_displayed >= total_count %}
+        {% break %}
+      {% endif %}
+      <div
+        class="column"
+        data-list-limit="true"
+        data-list-hidden-count="true"
+        data-list-max-height="170"
+      >
+        {% assign items_to_display_count = number_of_items_per_column %}
+        {% if i == var %}
+          {% assign items_to_display_count = total_count | minus: number_of_items_displayed %}
         {% endif %}
-        <div
-          class="column"
-          data-list-limit="true"
-          data-list-hidden-count="true"
-          data-list-max-height="170"
-        >
-          {% assign items_to_display_count = number_of_items_per_column %}
-          {% if i == var %}
-            {% assign items_to_display_count = total_count | minus: number_of_items_displayed %}
-          {% endif %}
-          {% assign items_to_display = items | slice: number_of_items_displayed, items_to_display_count %}
-          {% for item in items_to_display %}
-            {% assign number_of_items_displayed = number_of_items_displayed | plus: 1 %}
-            <div class="item">
-              <div class="meta">
-              </div>
-              <div class="content">
-                <span class="title title--small">{{ item }}</span>
-              </div>
+        {% assign items_to_display = items | slice: number_of_items_displayed, items_to_display_count %}
+        {% for item in items_to_display %}
+          {% assign number_of_items_displayed = number_of_items_displayed | plus: 1 %}
+          <div class="item">
+            <div class="meta"></div>
+            <div class="content">
+              <span class="title title--small">{{ item }}</span>
             </div>
-          {% endfor %}
-        </div>
-      {% endfor %}
-    </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
   </div>
-  <div class="title_bar">
-    <img
-      class="image"
-      src="https://cdn.prod.website-files.com/5fbe6548a005d56f0dd39a2e/5fc24a65f7e1555200865e1b_bring-logo.svg"
-    >
-    <span class="title">Bring!</span>
-    <span class="instance">Home</span>
-  </div>
-  
-  <!-- Include the overflow.js script -->
-  <script src="https://usetrmnl.com/js/latest/plugins.js"></script>
-  
+</div>
+<div class="title_bar">
+  <img
+    class="image"
+    src="https://cdn.prod.website-files.com/5fbe6548a005d56f0dd39a2e/5fc24a65f7e1555200865e1b_bring-logo.svg"
+  >
+  <span class="title">Bring!</span>
+  <span class="instance">{{ list_name }}</span>
+</div>
